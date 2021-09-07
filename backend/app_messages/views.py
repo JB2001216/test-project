@@ -92,7 +92,7 @@ class MessagesViewSet(ModelViewSet):
     )
     def outbox(self, request):
         """User outbox messages."""
-        messages = Message.objects.filter(to_user=request.user)
+        messages = Message.objects.filter(from_user=request.user)
         page = self.paginate_queryset(messages.all())
         if page is not None:
             serializer = self.get_serializer(page, many=True)
