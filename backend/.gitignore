@@ -1,0 +1,13 @@
+.mypy_cache
+.pytest_cache
+.idea
+logs
+*.pyc
+media
+venv/
+coverage.xml
+app/.coverage
+static
+htmlcov
+.DS_Store
+.vscode

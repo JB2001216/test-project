@@ -1,0 +1,53 @@
+<div class="form-wrapper col-md-6 offset-md-3 col-sm-12">
+  <form [formGroup]="messageForm">
+
+    <div *ngFor="let err of getMessages(error)" class="alert alert-danger" role="alert">
+      {{err}}
+    </div>
+    <div *ngIf="successMessage" class="alert alert-success" role="alert">
+      <span>The message has been sent</span><br>
+      {{getMessages(successMessage)}}
+    </div>
+
+    <div class="form-group">
+      <label for="inputEmail">Email address</label>
+      <input type="email" id="inputEmail"
+             formControlName="to_user" class="form-control"
+             placeholder="Enter email"
+             [ngClass]="{ 'is-invalid': messageForm && lf.to_user.invalid, 'is-valid': messageForm && !lf.to_user.invalid }"
+             required>
+      <div *ngIf="messageForm && (lf.to_user.invalid || lf.to_user.errors?.required)"
+           class="help-block mt-1 text-danger"><i class="ft-alert-circle align-middle"></i> This is
+        required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" id="title"
+             formControlName="title" class="form-control"
+             placeholder=""
+             [ngClass]="{ 'is-invalid': messageForm && lf.title.invalid, 'is-valid':messageForm && !lf.title.invalid }"
+             required>
+      <div *ngIf="messageForm && (lf.title.invalid || lf.title.errors?.required)"
+           class="help-block mt-1 text-danger"><i class="ft-alert-circle align-middle"></i> This is
+        required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="text">Text</label>
+      <textarea id="text"
+             formControlName="text" class="form-control"
+             placeholder="Enter text"
+             [ngClass]="{ 'is-invalid': messageForm && lf.text.invalid, 'is-valid': messageForm && !lf.text.invalid }"
+                required></textarea>
+      <div *ngIf="messageForm && (lf.text.invalid || lf.text.errors?.required)"
+           class="help-block mt-1 text-danger"><i class="ft-alert-circle align-middle"></i> This is
+        required
+      </div>
+    </div>
+    <button type="submit" (click)="onSubmit()" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+

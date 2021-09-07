@@ -1,0 +1,22 @@
+
+<ul class="list-group  messages">
+  <li *ngFor="let message of messages" class="list-group-item d-flex">
+    <div>to: {{message?.to_user?.email}}</div><hr>
+    <div>{{message?.text}}</div><hr>
+    <div>{{message?.created | date}}</div>
+
+    <button (click)="delete(message.id)" type="button" class="btn btn-danger ml-auto">Delete</button>
+  </li>
+
+</ul>
+<nav aria-label="...">
+  <ul class="pagination">
+    <li *ngIf="prev" class="page-item">
+      <a class="page-link"  (click)="prevNext(prev)">Previous</a>
+    </li>
+
+    <li *ngIf="next" class="page-item">
+      <a (click)="prevNext(next)" class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav>

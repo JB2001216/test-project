@@ -1,0 +1,53 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres
+    container_name: db
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    network_mode: "bridge"
+
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./docker/backend/Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    container_name: backend
+    volumes:
+      - ./backend:/app/backend
+      - ./backend/media:/app/backend/media
+      - ./backend/static/:/app/backend/static
+    network_mode: "bridge"
+    links:
+      - db
+    expose:
+      - 8000
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+      args:
+        - project_env=dev
+    container_name: nginx
+    restart: always
+    network_mode: "bridge"
+    volumes:
+      - ./backend:/app/backend
+      - ./backend/media:/app/backend/media
+      - ./backend/static:/app/backend/static
+    depends_on:
+      - backend
+    links:
+      - backend
+    ports:
+      - 80:80
+      - 8000:8000

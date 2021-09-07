@@ -1,0 +1,31 @@
+<div class="form-wrapper col-md-6 offset-md-3 col-sm-12">
+  <form [formGroup]="loginForm">
+
+     <div *ngFor="let error of gerErrors(error)" class="alert alert-danger" role="alert">
+      {{error}}
+    </div>
+    <div class="form-group">
+      <label for="inputEmail">Email address</label>
+      <input type="email" id="inputEmail"
+             formControlName="email" class="form-control"
+             placeholder="Enter email"
+             [ngClass]="{ 'is-invalid': loginFormSubmitted && lf.email.invalid, 'is-valid': loginFormSubmitted && !lf.email.invalid }"
+             required>
+      <div *ngIf="loginFormSubmitted && (lf.email.invalid || lf.email.errors?.required)"
+           class="help-block mt-1 text-danger"><i class="ft-alert-circle align-middle"></i> This is
+        required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="passwordInput">Password</label>
+      <input type="password" formControlName="password" class="form-control" placeholder="Old Password"
+             id="passwordInput"
+             [ngClass]="{'is-invalid': loginFormSubmitted && lf.password.invalid, 'is-valid': loginFormSubmitted && !lf.password.invalid }"
+             required>
+      <div *ngIf="loginFormSubmitted && (lf.password.invalid || lf.password.errors?.required)"
+           class="help-block mt-1 text-danger"><i class="ft-alert-circle align-middle"></i> This is required
+      </div>
+    </div>
+    <button type="submit" (click)="onSubmit()" class="btn btn-primary">Submit</button>
+  </form>
+</div>

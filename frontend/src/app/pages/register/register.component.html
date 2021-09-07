@@ -1,0 +1,59 @@
+<div class="form-wrapper col-md-6 offset-md-3 col-sm-12">
+  <form [formGroup]="registerForm">
+
+    <div *ngFor="let error of gerErrors(error)" class="alert alert-danger" role="alert">
+      {{error}}
+    </div>
+
+    <div class="form-group">
+      <label for="inputEmail">Email address</label>
+      <input type="email" id="inputEmail"
+             formControlName="email" class="form-control"
+             placeholder="Enter email"
+             [ngClass]="{ 'is-invalid': registerFormSubmitted && lf.email.invalid, 'is-valid': registerFormSubmitted && !lf.email.invalid }"
+             required>
+      <div *ngIf="registerFormSubmitted && (lf.email.invalid || lf.email.errors?.required)"
+           class="help-block mt-1 text-danger"><i class="ft-alert-circle align-middle"></i> This is
+        required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputEmail">Username</label>
+      <input type="text" id="username"
+             formControlName="username" class="form-control"
+             placeholder="Username"
+             [ngClass]="{ 'is-invalid': registerFormSubmitted && lf.username.invalid, 'is-valid': registerFormSubmitted && !lf.username.invalid }"
+             required>
+      <div *ngIf="registerFormSubmitted && (lf.username.invalid || lf.username.errors?.required)"
+           class="help-block mt-1 text-danger"><i class="ft-alert-circle align-middle"></i> This is
+        required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="passwordInput">Password</label>
+      <input type="password" formControlName="password1" class="form-control" placeholder="Password"
+             id="passwordInput"
+             [ngClass]="{'is-invalid': registerFormSubmitted && lf.password1.invalid, 'is-valid': registerFormSubmitted && !lf.password1.invalid }"
+             required>
+      <div *ngIf="registerFormSubmitted && (lf.password1.invalid || lf.password1.errors?.required)"
+           class="help-block mt-1 text-danger"><i class="ft-alert-circle align-middle"></i> This is required
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="confirmPasswordInput">Confirm Password</label>
+      <input type="password" formControlName="password2" class="form-control" placeholder="Confirm Password"
+             id="confirmPasswordInput"
+             [ngClass]="{'is-invalid': registerFormSubmitted && lf.password2.invalid, 'is-valid': registerFormSubmitted && !lf.password2.invalid }"
+             required>
+      <div *ngIf="registerFormSubmitted && (lf.password2.invalid || lf.password2.errors?.required)"
+           class="help-block mt-1 text-danger"><i class="ft-alert-circle align-middle"></i> This is required
+      </div>
+    </div>
+
+    <button type="submit" (click)="onSubmit()" class="btn btn-primary">Submit</button>
+  </form>
+</div>
